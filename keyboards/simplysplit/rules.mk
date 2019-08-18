@@ -80,6 +80,10 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
+CUSTOM_MATRIX = yes         # Custom matrix file for SimplySplit
+WAIT_FOR_USB = yes
 OLED_DRIVER_ENABLE = yes
 
-SRC += i2c_master.c
+# SRC += i2c_master.c  # not necessary as OLED_DRIVER_ENABLE includes this
+SRC += matrix.c
+

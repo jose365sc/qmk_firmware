@@ -14,63 +14,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <print.h>
-#include "i2c_master.h"
+//#include "i2c_master.h"
 #include "simplysplit.h"
 
 void keyboard_post_init_kb(void) {
-  debug_enable = true;
-  debug_matrix = true;
+#if 1
+  debug_enable   = true;
+  debug_matrix   = true;
   debug_keyboard = true;
   print("debug set!\n");
-
+#endif
   keyboard_post_init_user();
 }
-void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-  print("matrix set!\n");
-  i2c_init();
 
-	matrix_init_user();
+void matrix_init_kb(void) {
+  // put your keyboard start-up code here
+  // runs once when the firmware starts up
+  matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
+  // put your looping keyboard code here
+  // runs every cycle (a lot)
+  matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
-  print("yes!\n");
-  uint8_t buf[16];
-  i2c_readReg(0x40, 0x02, buf, 1, 1000);
-  uprintf("yes! %d\n", buf[0]);
-  i2c_readReg(0x40, 0x04, buf, 1, 1000);
-  uprintf("yes! %d\n", buf[0]);
-  i2c_readReg(0x40, 0x06, buf, 1, 1000);
-  uprintf("yes! %d\n", buf[0]);
-  i2c_readReg(0x40, 0x40, buf, 1, 1000);
-  uprintf("yes! %d\n", buf[0]);
-  i2c_readReg(0x40, 0x44, buf, 1, 1000);
-  uprintf("yes! %d\n", buf[0]);
-  i2c_readReg(0x44, 0x02, buf, 1, 1000);
-  uprintf("yes! %d\n", buf[0]);
-  i2c_readReg(0x44, 0x04, buf, 1, 1000);
-  uprintf("yes! %d\n", buf[0]);
-  i2c_readReg(0x44, 0x06, buf, 1, 1000);
-  uprintf("yes! %d\n", buf[0]);
-  i2c_readReg(0x44, 0x40, buf, 1, 1000);
-  uprintf("yes! %d\n", buf[0]);
-  i2c_readReg(0x44, 0x44, buf, 1, 1000);
-  uprintf("yes! %d\n", buf[0]);
-	return process_record_user(keycode, record);
+  // put your per-action keyboard code here
+  // runs for every action, just before processing by the firmware
+  return process_record_user(keycode, record);
 }
 
 void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-
-	led_set_user(usb_led);
+  // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+  led_set_user(usb_led);
 }
